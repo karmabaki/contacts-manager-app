@@ -13,17 +13,14 @@ const SearchContact = () => {
   };
 
   return (
-    <div className="input-group my-3">
+    <div className=" border rounded-lg  my-8">
       <input
         type="text"
-        className="form-control"
+        className="p-2"
         placeholder="جستجوی مخاطب ..."
         value={query.text}
         onChange={handleChange}
       />
-      <span className="input-group-text">
-        <i className="fa fa-search"></i>
-      </span>
     </div>
   );
 };

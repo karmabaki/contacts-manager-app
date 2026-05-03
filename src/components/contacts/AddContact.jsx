@@ -1,7 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createContact, setCurrentContact, clearCurrentContact } from '../../redux/slices/contactSlice';
+import {
+  createContact,
+  setCurrentContact,
+  clearCurrentContact,
+} from '../../redux/slices/contactSlice';
 import Spinner from '../Spinner';
 
 const AddContact = () => {
@@ -28,93 +32,83 @@ const AddContact = () => {
   };
 
   return (
-    <div className="row my-3">
-      <div className="col-md-8 offset-md-2">
-        <h3 className="text-center">افزودن مخاطب جدید</h3>
-        {loading ? (
-          <Spinner />
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="fullname"
-                className="form-control"
-                placeholder="نام کامل*"
-                value={currentContact.fullname}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="photo"
-                className="form-control"
-                placeholder="آدرس تصویر"
-                value={currentContact.photo}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="mobile"
-                className="form-control"
-                placeholder="موبایل*"
-                value={currentContact.mobile}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="email"
-                name="email"
-                className="form-control"
-                placeholder="ایمیل"
-                value={currentContact.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <input
-                type="text"
-                name="job"
-                className="form-control"
-                placeholder="شغل"
-                value={currentContact.job}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3">
-              <select
-                name="group"
-                className="form-control"
-                value={currentContact.group}
-                onChange={handleChange}
-              >
-                <option value="">انتخاب گروه</option>
-                {groups.map((g) => (
-                  <option key={g.id} value={g.id}>
-                    {g.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="d-flex justify-content-between">
-              <button type="submit" className="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition-colors shadow-sm">
-                ایجاد مخاطب
-              </button>
-              <button
-                type="button"
-                className="bg-amber-500 hover:bg-amber-600 text-white font-medium py-2 px-4 rounded transition-colors mr-4"
-                onClick={() => navigate('/')}
-              >
-                انصراف
-              </button>
-            </div>
-          </form>
-        )}
-      </div>
+    <div className="max-w-lg mx-auto mt-8">
+      <h3 className="text-2xl font-bold mb-6 text-center">افزودن مخاطب جدید</h3>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="fullname"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="نام کامل*"
+            value={currentContact.fullname}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="photo"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="آدرس تصویر"
+            value={currentContact.photo}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="mobile"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="موبایل*"
+            value={currentContact.mobile}
+            onChange={handleChange}
+          />
+          <input
+            type="email"
+            name="email"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="ایمیل"
+            value={currentContact.email}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="job"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="شغل"
+            value={currentContact.job}
+            onChange={handleChange}
+          />
+          <select
+            name="group"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            value={currentContact.group}
+            onChange={handleChange}
+          >
+            <option value="">انتخاب گروه</option>
+            {groups.map((g) => (
+              <option key={g.id} value={g.id}>
+                {g.name}
+              </option>
+            ))}
+          </select>
+
+          <div className="flex justify-between">
+            <button
+              type="submit"
+              className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-lg shadow transition-colors"
+            >
+              ایجاد مخاطب
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate('/')}
+              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium px-6 py-2 rounded-lg transition-colors"
+            >
+              انصراف
+            </button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };
