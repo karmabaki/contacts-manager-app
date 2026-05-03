@@ -36,10 +36,9 @@ const Contacts = () => {
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between items-center my-6">
-        <h2 className="text-2xl font-bold mb-3 md:mb-0">مخاطبین</h2>
-        
-      </div>
+      <div className="flex justify-center items-center my-6">
+  <h2 className="text-2xl font-bold">مخاطبین</h2>
+</div>
 
       <SearchContact />
 
