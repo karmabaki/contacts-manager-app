@@ -1,0 +1,55 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "fullname": "علی محمدی",
+      "photo": "https://randomuser.me/api/portraits/men/1.jpg",
+      "mobile": "09123456789",
+      "email": "ali@example.com",
+      "job": "برنامه‌نویس فرانت‌اند",
+      "group": "1"
+    },
+    {
+      "id": "2",
+      "fullname": "سارا احمدی",
+      "photo": "https://randomuser.me/api/portraits/women/2.jpg",
+      "mobile": "09198765432",
+      "email": "sara@example.com",
+      "job": "طراح گرافیک",
+      "group": "2"
+    },
+    {
+      "id": "3",
+      "fullname": "محمد حسینی",
+      "photo": "https://randomuser.me/api/portraits/men/3.jpg",
+      "mobile": "09361234567",
+      "email": "mohammad@example.com",
+      "job": "مدیر پروژه",
+      "group": "3"
+    },
+    {
+      "fullname": "Sasan Mohammadesmaeili",
+      "photo": "",
+      "mobile": "09923157640",
+      "email": "mahdiesmaeili483@gmail.com",
+      "job": "برنامه‌نویس فرانت‌اند",
+      "group": "3",
+      "id": "ipC4u3UEYlk"
+    }
+  ],
+  "groups": [
+    {
+      "id": "1",
+      "name": "دوستان"
+    },
+    {
+      "id": "2",
+      "name": "همکاران"
+    },
+    {
+      "id": "3",
+      "name": "خانواده"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
