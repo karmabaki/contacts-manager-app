@@ -1,6 +1,5 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setQuery, filterContacts } from '../../redux/slices/contactSlice';
+import { setQuery, filterContacts } from '../redux/slices/contactSlice';
 
 const SearchContact = () => {
   const dispatch = useDispatch();
@@ -13,10 +12,10 @@ const SearchContact = () => {
   };
 
   return (
-    <div className=" border rounded-lg  my-8">
+    <div className="text-center my-6">
       <input
         type="text"
-        className="p-2"
+        className="border rounded-lg p-2"
         placeholder="جستجوی مخاطب ..."
         value={query.text}
         onChange={handleChange}

@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import Contact from './Contact';
 import Spinner from '../Spinner';
 import { deleteContact } from '../../redux/slices/contactSlice';
-import SearchContact from './SearchContact';
 import ConfirmDialog from '../ConfirmDialog';
+import SearchContact from '../SearchContact';
 
 const Contacts = () => {
   const contactsState = useSelector((state) => state.contacts);
