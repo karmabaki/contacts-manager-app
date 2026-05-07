@@ -5,7 +5,7 @@ const uiSlice = createSlice({
   initialState: {
     loading: false,
     groups: [],
-    error: null,          // پیام خطای سراسری
+    error: null,         
   },
   reducers: {
     setLoading: (state, action) => {
