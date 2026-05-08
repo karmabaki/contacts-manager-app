@@ -57,10 +57,6 @@ const EditContact = () => {
     );
   }
 
-  if (!initialValues) {
-    return <Spinner />;
-  }
-
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
