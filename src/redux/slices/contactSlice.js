@@ -115,10 +115,7 @@ const contactSlice = createSlice({
         const term = state.query.text.toLowerCase();
         state.filteredItems = state.items.filter(
           (c) =>
-            c.fullname.toLowerCase().includes(term) ||
-            c.mobile.includes(term) ||
-            c.email.toLowerCase().includes(term) ||
-            c.job.toLowerCase().includes(term)
+            c.fullname.toLowerCase().includes(term)
         );
       }
     },
