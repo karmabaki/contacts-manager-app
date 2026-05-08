@@ -1,47 +1,33 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { createContact, setCurrentContact, clearCurrentContact } from '../../redux/slices/contactSlice';
+import { createContact} from '../../redux/slices/contactSlice';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
 
 const AddContact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentContact } = useSelector((state) => state.contacts);
   const { groups, loading } = useSelector((state) => state.ui);
-  const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    dispatch(
-      setCurrentContact({ ...currentContact, [e.target.name]: e.target.value })
-    );
-    if (errors[e.target.name]) {
-      setErrors((prev) => {
-        const newErrors = { ...prev };
-        delete newErrors[e.target.name];
-        return newErrors;
-      });
-    }
+const initialValues = {
+    fullname: '',
+    photo: '',
+    mobile: '',
+    email: '',
+    job: '',
+    group: '',
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setErrors({});
-
+  const handleSubmit = async (values, { setSubmitting}) => {
     try {
-      await contactSchema.validate(currentContact, { abortEarly: false });
-      dispatch(createContact(currentContact));
-      dispatch(clearCurrentContact());
+      await dispatch(createContact(values)).unwrap();
       navigate('/');
     } catch (err) {
-      if (err.inner) {
-        const validationErrors = {};
-        err.inner.forEach((error) => {
-          if (error.path) validationErrors[error.path] = error.message;
-        });
-        setErrors(validationErrors);
-      }
+      alert('خطا در ایجاد مخاطب: ' + (err.message || 'مشکل در ارتباط با سرور'));
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -51,124 +37,97 @@ const AddContact = () => {
       {loading ? (
         <Spinner />
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <input
-              type="text"
-              name="fullname"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.fullname ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              placeholder="نام کامل*"
-              value={currentContact.fullname}
-              onChange={handleChange}
-            />
-            {errors.fullname && (
-              <p className="text-red-500 text-sm mt-1">{errors.fullname}</p>
-            )}
-          </div>
+        <Formik
+        initialValues={initialValues}
+        validationSchema={contactSchema}
+        onSubmit={handleSubmit}
+        >
+        {({ isSubmitting }) => (
+          <Form className='space-y-4'>
+            <div>
+              <Field
+                type="text"
+                name="fullname"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="نام کامل*"/>
+              <ErrorMessage name='fullname' component="p" className='text-red-500 text-sm mt-1'/>
+            </div>
 
-          <div>
-            <input
-              type="text"
-              name="photo"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.photo ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              placeholder="آدرس تصویر"
-              value={currentContact.photo}
-              onChange={handleChange}
-            />
-            {errors.photo && (
-              <p className="text-red-500 text-sm mt-1">{errors.photo}</p>
-            )}
-          </div>
+            <div>
+                <Field
+                  type="text"
+                  name="photo"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="آدرس تصویر"
+                />
+                <ErrorMessage name="photo" component="p" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          <div>
-            <input
-              type="text"
-              name="mobile"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.mobile ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              placeholder="موبایل*"
-              value={currentContact.mobile}
-              onChange={handleChange}
-            />
-            {errors.mobile && (
-              <p className="text-red-500 text-sm mt-1">{errors.mobile}</p>
-            )}
-          </div>
+               <div>
+                <Field
+                  type="text"
+                  name="mobile"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="موبایل*"
+                />
+                <ErrorMessage name="mobile" component="p" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          <div>
-            <input
-              type="email"
-              name="email"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.email ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              placeholder="ایمیل"
-              value={currentContact.email}
-              onChange={handleChange}
-            />
-            {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-            )}
-          </div>
+              <div>
+                <Field
+                  type="email"
+                  name="email"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="ایمیل"
+                />
+                <ErrorMessage name="email" component="p" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          <div>
-            <input
-              type="text"
-              name="job"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.job ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              placeholder="شغل"
-              value={currentContact.job}
-              onChange={handleChange}
-            />
-            {errors.job && (
-              <p className="text-red-500 text-sm mt-1">{errors.job}</p>
-            )}
-          </div>
+              <div>
+                <Field
+                  type="text"
+                  name="job"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="شغل"
+                />
+                <ErrorMessage name="job" component="p" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          <div>
-            <select
-              name="group"
-              className={`w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 ${
-                errors.group ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'
-              }`}
-              value={currentContact.group}
-              onChange={handleChange}
-            >
-              <option value="">انتخاب گروه</option>
-              {groups.map((g) => (
-                <option key={g.id} value={g.id}>
-                  {g.name}
-                </option>
-              ))}
-            </select>
-            {errors.group && (
-              <p className="text-red-500 text-sm mt-1">{errors.group}</p>
-            )}
-          </div>
+              <div>
+                <Field
+                  as="select"
+                  name="group"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <option value="">انتخاب گروه</option>
+                  {groups.map((g) => (
+                    <option key={g.id} value={g.id}>
+                      {g.name}
+                    </option>
+                  ))}
+                </Field>
+                <ErrorMessage name="group" component="p" className="text-red-500 text-sm mt-1" />
+              </div>
 
-          <div className="flex justify-between">
-            <button
-              type="submit"
-              className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-lg shadow transition-colors"
-            >
-              ایجاد مخاطب
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate('/')}
-              className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium px-6 py-2 rounded-lg transition-colors"
-            >
-              انصراف
-            </button>
-          </div>
-        </form>
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-lg shadow transition-colors disabled:opacity-50"
+                >
+                  {isSubmitting ? 'در حال ایجاد...' : 'ایجاد مخاطب'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => navigate('/')}
+                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-medium px-6 py-2 rounded-lg transition-colors"
+                >
+                  انصراف
+                </button>
+              </div>
+          </Form>
+          )}
+        </Formik>
       )}
     </div>
   );
