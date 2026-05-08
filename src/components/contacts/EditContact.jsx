@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { updateContact } from '../../redux/slices/contactSlice';
@@ -16,12 +16,13 @@ const EditContact = () => {
 
   const [initialValues, setInitialValues] = useState(null);
   const [found, setFound] = useState(false);
+  const [checking, setChecking] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
 
-    if (items.length === 0) return;
+    if (loading || items.length === 0) return;
 
-  
     const contact = items.find((c) => c.id == contactId);
 
     if (contact) {
@@ -39,9 +40,15 @@ const EditContact = () => {
       
       setFound(false);
     }
-  }, [contactId, items]);
+    setChecking(false);
+    
 
-  if (loading) return <Spinner />;
+  }, [contactId, items, loading]);
+
+  if ((loading || checking) && !isSaving) {
+    return <Spinner />;
+  }
+
 
   if (!found) {
     return (
@@ -58,17 +65,22 @@ const EditContact = () => {
   }
 
 
+
   const handleSubmit = async (values, { setSubmitting }) => {
+    setIsSaving(true);
     try {
+      
       await dispatch(
-        updateContact({ contactId: contactId, contact: values })
+      updateContact({ contactId: contactId, contact: values })
       ).unwrap();
       navigate('/');
+      
     } catch (err) {
       alert('ویرایش انجام نشد: ' + (err.message || 'خطای ناشناخته'));
     } finally {
+      setIsSaving(false);
       setSubmitting(false);
-    }
+      }
   };
 
  return (
@@ -152,10 +164,10 @@ const EditContact = () => {
             <div className="flex justify-between">
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isSaving}
                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium px-6 py-2 rounded-lg shadow transition-colors disabled:opacity-50"
               >
-                {isSubmitting ? 'در حال ذخیره...' : 'ذخیره تغییرات'}
+                {isSaving ? 'در حال ذخیره...' : 'ذخیره تغییرات'}
               </button>
               <button
                 type="button"

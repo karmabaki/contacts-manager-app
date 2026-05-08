@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { createContact} from '../../redux/slices/contactSlice';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
+import { useState } from 'react';
 
 const AddContact = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { groups, loading } = useSelector((state) => state.ui);
+  const [isSaving, setIsSaving] = useState(false);
 
 const initialValues = {
     fullname: '',
@@ -21,6 +22,7 @@ const initialValues = {
   };
 
   const handleSubmit = async (values, { setSubmitting}) => {
+    setIsSaving(true);
     try {
       await dispatch(createContact(values)).unwrap();
       navigate('/');
@@ -28,6 +30,7 @@ const initialValues = {
       alert('خطا در ایجاد مخاطب: ' + (err.message || 'مشکل در ارتباط با سرور'));
     } finally {
       setSubmitting(false);
+      setIsSaving(false);
     }
   };
 
@@ -112,10 +115,10 @@ const initialValues = {
               <div className="flex justify-between">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || isSaving}
                   className="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded-lg shadow transition-colors disabled:opacity-50"
                 >
-                  {isSubmitting ? 'در حال ایجاد...' : 'ایجاد مخاطب'}
+                {isSaving ? 'در حال ایجاد مخاطب...' : 'ایجاد مخاطب'}
                 </button>
                 <button
                   type="button"
