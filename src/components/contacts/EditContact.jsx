@@ -5,6 +5,7 @@ import { updateContact } from '../../redux/slices/contactSlice';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
+import { toast } from 'react-toastify';
 
 const EditContact = () => {
   const { contactId } = useParams();
@@ -73,10 +74,11 @@ const EditContact = () => {
       await dispatch(
       updateContact({ contactId: contactId, contact: values })
       ).unwrap();
+      toast.success('مخاطب با موفقیت ویرایش شد')
       navigate('/');
       
     } catch (err) {
-      alert('ویرایش انجام نشد: ' + (err.message || 'خطای ناشناخته'));
+      toast.error('خطا در ویرایش مخاطب')
     } finally {
       setIsSaving(false);
       setSubmitting(false);

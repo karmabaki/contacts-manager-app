@@ -5,6 +5,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const AddContact = () => {
   const dispatch = useDispatch();
@@ -25,10 +26,13 @@ const initialValues = {
     setIsSaving(true);
     try {
       await dispatch(createContact(values)).unwrap();
+      toast.success('مخاطب با موفقیت ساخته شد')
+
       navigate('/');
     } catch (err) {
-      alert('خطا در ایجاد مخاطب: ' + (err.message || 'مشکل در ارتباط با سرور'));
-    } finally {
+      toast.error('خطا در ساخت مخاطب')
+      }
+       finally {
       setSubmitting(false);
       setIsSaving(false);
     }
