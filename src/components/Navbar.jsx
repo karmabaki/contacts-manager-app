@@ -1,12 +1,45 @@
-import React from 'react';
+import Colorfull from '../../hoc/Colorfull';
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+// Map of colour name → complete Tailwind background class (this makes the class static!)
+const bgColorMap = {
+  rose: 'bg-rose-300',
+  pink: 'bg-pink-300',
+  fuchsia: 'bg-fuchsia-300',
+  purple: 'bg-purple-300',
+  violet: 'bg-violet-300',
+  indigo: 'bg-indigo-300',
+  blue: 'bg-blue-300',
+  sky: 'bg-sky-300',
+  cyan: 'bg-cyan-300',
+  teal: 'bg-teal-300',
+  emerald: 'bg-emerald-300',
+  green: 'bg-green-300',
+  lime: 'bg-lime-300',
+  yellow: 'bg-yellow-300',
+  amber: 'bg-amber-300',
+  orange: 'bg-orange-300',
+  red: 'bg-red-300',
+};
+
+const Navbar = ({ colorName = 'gray', onChangeColor }) => {
+  const bgColor = bgColorMap[colorName] || 'bg-gray-800';
+
   return (
-    <nav className="bg-gray-800 text-white py-3 px-6 rounded-lg mt-4 flex items-center justify-between shadow-md">
+    <nav
+      className={`py-3 px-6 rounded-lg mt-4 flex items-center justify-between shadow-md text-gray-600 transition-colors ${bgColor}`}
+    >
       <Link to="/" className="text-xl font-bold tracking-wide hover:text-gray-300 transition-colors">
         دفترچه تلفن
       </Link>
+      {onChangeColor && (
+        <button
+          onClick={onChangeColor}
+          className="bg-white bg-opacity-50 px-3 py-1 rounded text-sm hover:bg-opacity-30"
+        >
+          تغییر رنگ
+        </button>
+      )}
       <Link
         to="/contacts/add"
         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -17,4 +50,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Colorfull(Navbar);
