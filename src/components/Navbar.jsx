@@ -1,7 +1,7 @@
 import Colorfull from '../../hoc/Colorfull';
 import { Link } from 'react-router-dom';
 
-// Map of colour name → complete Tailwind background class (this makes the class static!)
+
 const bgColorMap = {
   rose: 'bg-rose-300',
   pink: 'bg-pink-300',
