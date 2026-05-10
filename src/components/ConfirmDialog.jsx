@@ -1,9 +1,9 @@
-import React from 'react';
+import { createPortal } from 'react-dom';
 
 const ConfirmDialog = ({ isOpen, title, onConfirm, onCancel }) => {
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
       <div className="bg-white rounded-lg p-6 shadow-xl max-w-sm mx-4 text-center">
         <h3 className="text-lg font-semibold mb-4">{title}</h3>
@@ -22,7 +22,8 @@ const ConfirmDialog = ({ isOpen, title, onConfirm, onCancel }) => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 
