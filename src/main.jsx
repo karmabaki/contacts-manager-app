@@ -10,7 +10,7 @@ import './App.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename='/contacts-manager-app'>
       <App />
     </BrowserRouter>
   </Provider>
