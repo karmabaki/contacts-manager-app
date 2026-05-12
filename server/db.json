@@ -10,13 +10,13 @@
       "id": "1"
     },
     {
-      "id": "2",
       "fullname": "سارا احمدی",
       "photo": "https://randomuser.me/api/portraits/women/2.jpg",
       "mobile": "09198765432",
       "email": "sara@example.com",
       "job": "طراح گرافیک",
-      "group": "2"
+      "group": "1",
+      "id": "2"
     },
     {
       "fullname": "ساسان محمداسماعیلی",
@@ -33,7 +33,7 @@
       "mobile": "09206687289",
       "email": "hamed@example.com",
       "job": "برنامه نویس",
-      "group": "1",
+      "group": "2",
       "id": "gABfajminxE"
     }
   ],

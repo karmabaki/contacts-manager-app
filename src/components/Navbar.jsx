@@ -27,9 +27,9 @@ const Navbar = ({ colorName = 'gray', onChangeColor }) => {
 
   return (
     <nav
-      className={`py-3 px-6 rounded-lg mt-4 flex items-center justify-between shadow-md text-gray-600 transition-colors ${bgColor}`}
+      className={`py-3 px-6 rounded-lg mt-4 flex items-center justify-between shadow-md text-gray-700 transition-colors ${bgColor}`}
     >
-      <Link to="/" className="text-xl font-bold tracking-wide hover:text-gray-300 transition-colors">
+      <Link to="/" className="text-xl font-bold tracking-wide hover:text-gray-400 transition-colors">
         دفترچه تلفن
       </Link>
       {onChangeColor && (

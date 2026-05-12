@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { lazy, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from './redux/slices/contactSlice';
 import { getAllGroups } from "./contactService"
 import { setGroups, clearError } from './redux/slices/uiSlice';
 import { toast, ToastContainer } from 'react-toastify';
-import Contacts from './components/contacts/contacts';
-import AddContact from './components/contacts/AddContact';
-import EditContact from './components/contacts/EditContact';
-import ViewContact from './components/contacts/ViewContact';
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar"
+import Contacts from "./components/contacts/Contacts"
+
+const EditContact = lazy(()=>import("./components/contacts/EditContact"));
+const AddContact = lazy(()=>import("./components/contacts/AddContact"));
+const ViewContact = lazy(()=>import("./components/contacts/ViewContact"));
 
 const App = () => {
   const dispatch = useDispatch();
