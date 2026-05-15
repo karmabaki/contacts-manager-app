@@ -6,6 +6,8 @@ import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
+
 
 const AddContact = () => {
   const dispatch = useDispatch();
@@ -40,6 +42,10 @@ const initialValues = {
 
 
   return (
+    <>
+    <Helmet>
+      <title>افزودن مخاطب جدید | دفترچه تلفن</title>
+    </Helmet>
     <div className="max-w-lg mx-auto mt-8">
       <h3 className="text-2xl font-bold mb-6 text-center">افزودن مخاطب جدید</h3>
       {loading ? (
@@ -138,6 +144,7 @@ const initialValues = {
         </Formik>
       )}
     </div>
+    </>
   );
 };
 

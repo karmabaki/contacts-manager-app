@@ -5,6 +5,8 @@ import { fetchContacts } from './redux/slices/contactSlice';
 import { getAllGroups } from "./contactService"
 import { setGroups, clearError } from './redux/slices/uiSlice';
 import { toast, ToastContainer } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
+
 import Navbar from "./components/Navbar"
 import Contacts from "./components/contacts/Contacts"
 
@@ -41,6 +43,9 @@ const App = () => {
 
   return (
   <>
+  <Helmet>
+  <title>دفترچه تلفن</title>
+</Helmet>
     <ToastContainer position="top-right" rtl={true} autoClose={3000} theme='colored'/>
     <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-10 lg:px-20 xl:px-32">
       <Navbar />

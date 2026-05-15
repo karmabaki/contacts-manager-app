@@ -4,6 +4,8 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { setLoading, clearError, setError } from '../../redux/slices/uiSlice';
 import { getContact } from "../../contactService"
 import Spinner from '../Spinner';
+import { Helmet } from 'react-helmet-async';
+
 
 const ViewContact = () => {
   const { contactId } = useParams();
@@ -40,6 +42,10 @@ const ViewContact = () => {
     );
 
   return (
+    <>
+    <Helmet>
+      <title>{contact ? `${contact.fullname} - مشاهده` : 'بارگذاری...'}</title>
+    </Helmet>
     <div className="mt-8 max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
       <div className="bg-gray-800 text-white px-6 py-4 flex justify-between items-center">
         <h2 className="text-xl font-bold">{contact.fullname}</h2>
@@ -72,6 +78,7 @@ const ViewContact = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -6,6 +6,8 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { contactSchema } from '../../validations/contactValidation';
 import Spinner from '../Spinner';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
+
 
 const EditContact = () => {
   const { contactId } = useParams();
@@ -86,6 +88,12 @@ const EditContact = () => {
   };
 
  return (
+  <>
+  <Helmet>
+  <title>
+    {initialValues?.fullname ? `ویرایش - ${initialValues.fullname}` : 'ویرایش مخاطب'}
+  </title>
+</Helmet>
     <div className="max-w-lg mx-auto mt-8">
       <h3 className="text-2xl font-bold mb-6 text-center">ویرایش مخاطب</h3>
       <Formik
@@ -183,6 +191,7 @@ const EditContact = () => {
         )}
       </Formik>
     </div>
+    </>
   );
 };
 

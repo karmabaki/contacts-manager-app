@@ -6,6 +6,7 @@ import { store } from './redux/store';
 import App from './App';
 import './index.css';
 import './App.css';
+import { HelmetProvider } from 'react-helmet-async';
 
 
 const ErrorFallbaack = ({error,resetErrorBoundary})=>{
@@ -26,14 +27,17 @@ const ErrorFallbaack = ({error,resetErrorBoundary})=>{
   )
 }
 
+const helmetContext = {};
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <Provider store={store}>
-    <BrowserRouter basename='/contacts-manager-app'>
-      <ErrorBoundary FallbackComponent={ErrorFallbaack}>
-        <App />
-      </ErrorBoundary>
-    </BrowserRouter>
-  </Provider>
+  <HelmetProvider context={helmetContext}>
+    <Provider store={store}>
+      <BrowserRouter basename='/contacts-manager-app'>
+        <ErrorBoundary FallbackComponent={ErrorFallbaack}>
+          <App />
+        </ErrorBoundary>
+      </BrowserRouter>
+    </Provider>
+  </HelmetProvider>
 );

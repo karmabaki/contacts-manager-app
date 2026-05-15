@@ -6,6 +6,7 @@ import { deleteContact } from '../../redux/slices/contactSlice';
 import ConfirmDialog from '../ConfirmDialog';
 import SearchContact from '../SearchContact';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 const Contacts = () => {
   
@@ -57,6 +58,10 @@ const Contacts = () => {
 
   return (
     <>
+      <Helmet>
+        <title>دفترچه تلفن - همه مخاطبین</title>
+        <meta name="description" content="لیست تمام مخاطبین" />
+      </Helmet>
       <div className="flex justify-center items-center my-6">
         <h2 className="text-2xl font-bold">مخاطبین</h2>
       </div>
